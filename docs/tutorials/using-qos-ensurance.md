@@ -2,15 +2,17 @@
 QoS ensurance guarantees the stability of the pods running on Kubernetes.
 Disable schedule, throttle, evict will be applied to low priority pods when the higher priority pods is impacted by resource competition.
 
-# Qos Ensurance Architecture
+## Qos Ensurance Architecture
 Qos ensurance's architecture is shown as below. It contains three modules.
+
 1. state collector: collect metrics periodically
 2. anomaly analyzer: analyze the node triggered anomaly used collected metrics
 3. action executor: execute avoidance actions, include disable scheduling, throttle and eviction.
 
-<div align="center"><img src="../images/crane-qos-ensurance.png" style="width:900px;" /></div>
+![crane-qos-enurance](../images/crane-qos-ensurance.png)
 
 The main process:
+
 1. State collector synchronizes policies from kube-apiserver.
 2. If the policies are changed, the state collector updates the collectors.
 3. State collector collects metrics periodically.
@@ -19,7 +21,7 @@ The main process:
 6. Anomaly analyzer merges the analyzed results and notices the avoidance actions.
 7. Action executor executes actions based on the analyzed results.
 
-# Disable Scheduling
+## Disable Scheduling
 
 The following AvoidanceAction and NodeQOSEnsurancePolicy can be defined. As a result, when the node CPU usage triggers the threshold, disable schedule action for the node will be executed.
 
@@ -65,7 +67,7 @@ Please check the video to learn more about the scheduling disable actions.
 [![disable scheduling example video](../images/disablescheduling-example.png)](https://youtu.be/87bnz5LasbI "disable scheduling")
 
 
-# Throttle
+## Throttle
 
 The following AvoidanceAction and NodeQOSEnsurancePolicy can be defined. As a result, when the node CPU usage triggers the threshold, throttle action for the node will be executed.
 
@@ -113,7 +115,7 @@ spec:
         value: 6000
 ```
 
-# Eviction
+## Eviction
 
 The following YAML is another case, low priority pods on the node will be evicted, when the node CPU usage trigger the threshold.
 
@@ -154,7 +156,7 @@ spec:
       value: 6000
 ```
 
-# Supported Metrics
+## Supported Metrics
 
 Name     | Description
 ---------|-------------

@@ -3,6 +3,7 @@
 Analytics and Recommendation provide capacity that analyzes the workload in k8s cluster and provide recommendations about resource optimize.
 
 Two Recommendations are currently supported:
+
 - **ResourceRecommend**: Recommend container requests & limit resources based on historic metrics.
 - **Effective HPARecommend**: Recommend which workloads are suitable for autoscaling and provide optimized configurations such as minReplicas, maxReplicas.
 
@@ -10,14 +11,14 @@ Two Recommendations are currently supported:
 
 Create an **Resource** `Analytics` to give recommendation for deployment: `craned` and `metric-adapter` as a sample.
 
-```console
+```bash
 kubectl apply -f https://raw.githubusercontent.com/gocrane/crane/main/examples/analytics/analytics-resource.yaml
 kubectl get analytics -n crane-system
 ```
 
 The output is:
 
-```console
+```bash
 NAME                      AGE
 craned-resource           15m
 metric-adapter-resource   15m
@@ -25,13 +26,13 @@ metric-adapter-resource   15m
 
 You can get created recommendation from analytics status:
 
-```console
+```bash
 kubectl get analytics craned-resource -n crane-system -o yaml
 ```
 
 The output is similar to:
 
-```console 
+```yaml 
 apiVersion: analysis.crane.io/v1alpha1
 kind: Analytics
 metadata:
@@ -57,13 +58,13 @@ status:
 
 The recommendation name presents on `status.recommendations[0].name`. Then you can get recommendation detail by running:
 
-```console
+```bash
 kubectl get recommend -n crane-system craned-resource-resource-j7shb -o yaml
 ```
 
 The output is similar to:
 
-```console
+```yaml
 apiVersion: analysis.crane.io/v1alpha1
 kind: Recommendation
 metadata:
@@ -114,14 +115,14 @@ Something you should know about Resource recommendation:
 
 Create an **HPA** `Analytics` to give recommendation for deployment: `craned` and `metric-adapter` as an sample.
 
-```console
+```bash
 kubectl apply -f https://raw.githubusercontent.com/gocrane/crane/main/examples/analytics/analytics-hpa.yaml
 kubectl get analytics -n crane-system 
 ```
 
 The output is:
 
-```console
+```bash
 NAME                      AGE
 craned-hpa                5m52s
 craned-resource           18h
@@ -132,13 +133,13 @@ metric-adapter-resource   18h
 
 You can get created recommendation from analytics status:
 
-```console
+```bash
 kubectl get analytics craned-hpa -n crane-system -o yaml
 ```
 
 The output is similar to:
 
-```console 
+```yaml 
 apiVersion: analysis.crane.io/v1alpha1
 kind: Analytics
 metadata:
@@ -166,13 +167,13 @@ status:
 
 The recommendation name presents on `status.recommendations[0].name`. Then you can get recommendation detail by running:
 
-```console
+```bash
 kubectl get recommend -n crane-system craned-resource-resource-j7shb -o yaml
 ```
 
 The output is similar to:
 
-```console
+```yaml
 apiVersion: analysis.crane.io/v1alpha1
 kind: Recommendation
 metadata:
@@ -209,9 +210,10 @@ status:
 The `status.resourceRequest` is recommended by crane's recommendation engine. The fail reason is demo workload don't have enough run time.
 
 Something you should know about HPA recommendation:
+
 * HPA Recommendation use historic prometheus metrics to calculate, forecast and propose.
 * We use **DSP** algorithm to process metrics.
-* We recommend using Effective HorizontalPodAutoscaler to execute autoscaling, you can see [this document](./docs/tutorials/using-time-series-prediction.md) to learn more.
+* We recommend using Effective HorizontalPodAutoscaler to execute autoscaling, you can see [this document](using-time-series-prediction.md) to learn more.
 * The Workload need match following conditions:
     * Existing at least one ready pod
     * Ready pod ratio should larger that 50%
