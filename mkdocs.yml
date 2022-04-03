@@ -5,14 +5,15 @@ theme:
   language: en
   features:
     - toc.integrate
+    - content.code.annotate
   palette:
     primary: blue
   logo: images/crane.svg
   favicon: images/crane.svg
   font:
     text: Work Sans
-extra_css:
-  - stylesheets/extra.css
+extra_javascript:
+  - assets/util.js
 plugins:
   - search
 markdown_extensions:
@@ -22,6 +23,9 @@ markdown_extensions:
       permalink: true
   - pymdownx.highlight:
       anchor_linenums: true
+      use_pygments: true
+      linenums: true
+      linenums_style: pymdownx-inline
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences

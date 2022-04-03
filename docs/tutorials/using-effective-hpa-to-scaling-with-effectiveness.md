@@ -12,40 +12,45 @@ Besides that, EffectiveHorizontalPodAutoscaler also defines several scale strate
 
 ## Features
 A EffectiveHorizontalPodAutoscaler sample yaml looks like below:
+
 ```yaml
 apiVersion: autoscaling.crane.io/v1alpha1
 kind: EffectiveHorizontalPodAutoscaler
 metadata:
   name: php-apache
 spec:
-  # ScaleTargetRef is the reference to the workload that should be scaled.
-  scaleTargetRef:
+  scaleTargetRef: #(1)
     apiVersion: apps/v1
     kind: Deployment
     name: php-apache
-  minReplicas: 1        # MinReplicas is the lower limit replicas to the scale target which the autoscaler can scale down to.
-  maxReplicas: 10       # MaxReplicas is the upper limit replicas to the scale target which the autoscaler can scale up to.
-  scaleStrategy: Auto   # ScaleStrategy indicates the strategy to scaling target, value can be "Auto" and "Preview".
-  # Metrics contains the specifications for which to use to calculate the desired replica count.
-  metrics:
+  minReplicas: 1 #(2)
+  maxReplicas: 10 #(3)
+  scaleStrategy: Auto #(4)
+  metrics: #(5)
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
         averageUtilization: 50
-  # Prediction defines configurations for predict resources.
-  # If unspecified, defaults don't enable prediction.
-  prediction:
-    predictionWindowSeconds: 3600   # PredictionWindowSeconds is the time window to predict metrics in the future.
+  prediction: #(6)
+    predictionWindowSeconds: 3600 #(7)
     predictionAlgorithm:
       algorithmType: dsp
       dsp:
         sampleInterval: "60s"
         historyLength: "3d"
-
-
 ```
+
+1. ScaleTargetRef is the reference to the workload that should be scaled.
+2. MinReplicas is the lower limit replicas to the scale target which the autoscaler can scale down to.
+3. MaxReplicas is the upper limit replicas to the scale target which the autoscaler can scale up to.
+4. ScaleStrategy indicates the strategy to scaling target, value can be "Auto" and "Preview".
+5. Metrics contains the specifications for which to use to calculate the desired replica count.
+6. Prediction defines configurations for predict resources.If unspecified, defaults don't enable prediction.
+7. PredictionWindowSeconds is the time window to predict metrics in the future.
+
+### Params Description
 
 * spec.scaleTargetRef defines the reference to the workload that should be scaled.
 * spec.minReplicas is the lower limit replicas to the scale target which the autoscaler can scale down to.

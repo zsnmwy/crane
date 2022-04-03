@@ -18,10 +18,10 @@ The goal of Crane is to provide a one-stop-shop project to help Kubernetes users
 - **Time Series Prediction** based on monitoring data
 - **Usage and Cost visibility**
 - **Usage & Cost Optimization** including:
-  - R2 (Resource Re-allocation)
-  - R3 (Request & Replicas Recommendation)
-  - Effective Pod Autoscaling (Effective Horizontal & Vertical Pod Autoscaling)
-  - Cost Optimization
+    - R2 (Resource Re-allocation)
+    - R3 (Request & Replicas Recommendation)
+    - Effective Pod Autoscaling (Effective Horizontal & Vertical Pod Autoscaling)
+    - Cost Optimization
 - **Enhanced QoS** based on Pod PriorityClass
 
 ![Crane Overview](images/crane-overview.png)
@@ -45,6 +45,7 @@ Please see [this document](tutorials/using-effective-hpa-to-scaling-with-effecti
 Analytics model analyzes the workload and provide recommendations about resource optimize.
 
 Two Recommendations are currently supported:
+
 - **ResourceRecommend**: Recommend container requests & limit resources based on historic metrics.
 - **Effective HPARecommend**: Recommend which workloads are suitable for autoscaling and provide optimized configurations such as minReplicas, maxReplicas.
 
@@ -52,6 +53,7 @@ Two Recommendations are currently supported:
 Kubernetes is capable of starting multiple pods on same node, and as a result, some of the user applications may be impacted when there are resources(e.g. cpu) consumption competition. To mitigate this, Crane allows users defining PrioirtyClass for the pods and QoSEnsurancePolicy, and then detects disruption and ensure the high priority pods not being impacted by resource competition.
 
 Avoidance Actions:
+
 - **Disable Schedule**: disable scheduling by setting node taint and condition
 - **Throttle**: throttle the low priority pods by squeezing cgroup settings
 - **Evict**: evict low priority pods
@@ -62,15 +64,15 @@ Please see [this document](tutorials/using-qos-ensurance.md) to learn more.
 
 Crane is composed of the following components:
 
-- [craned](cmd/craned) - main crane control plane.
+- [craned](https://github.com/gocrane/cmd/craned) - main crane control plane.
     - **Predictor** - Predicts resources metrics trends based on historical data.
     - **AnalyticsController** - Analyzes resources and generate related recommendations.
     - **RecommendationController** - Recommend Pod resource requests and autoscaler.
     - **ClusterNodePredictionController** - Create Predictor for nodes.
     - **EffectiveHPAController** - Effective HPA for horizontal scaling.
     - **EffectiveHPAController** - Effective VPA for vertical scaling.
-- [metric-adaptor](cmd/metric-adapter) - Metric server for driving the scaling.
-- [crane-agent](cmd/crane-agent) - Ensure critical workloads SLO based on abnormally detection.
+- [metric-adaptor](https://github.com/gocrane/cmd/metric-adapter) - Metric server for driving the scaling.
+- [crane-agent](https://github.com/gocrane/cmd/crane-agent) - Ensure critical workloads SLO based on abnormally detection.
 - [gocrane/api](https://github.com/gocrane/api) - This repository defines component-level APIs for the Crane platform.
 - [gocrane/fadvisor](https://github.com/gocrane/fadvisor) - Financial advisor which collect resource prices from cloud API.
 

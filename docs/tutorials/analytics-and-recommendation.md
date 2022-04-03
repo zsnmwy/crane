@@ -16,6 +16,40 @@ kubectl apply -f https://raw.githubusercontent.com/gocrane/crane/main/examples/a
 kubectl get analytics -n crane-system
 ```
 
+```yaml title="analytics-resource.yaml"  hl_lines="7 24 11-14 28-31"
+apiVersion: analysis.crane.io/v1alpha1
+kind: Analytics
+metadata:
+  name: craned-resource
+  namespace: crane-system
+spec:
+  type: Resource                        # This can only be "Resource" or "HPA".
+  completionStrategy:
+    completionStrategyType: Periodical  # This can only be "Once" or "Periodical".
+    periodSeconds: 86400                # analytics selected resources every 1 day
+  resourceSelectors:                    # defines all the resources to be select with
+    - kind: Deployment
+      apiVersion: apps/v1
+      name: craned
+
+---
+
+apiVersion: analysis.crane.io/v1alpha1
+kind: Analytics
+metadata:
+  name: metric-adapter-resource
+  namespace: crane-system
+spec:
+  type: Resource                       # This can only be "Resource" or "HPA".
+  completionStrategy:
+    completionStrategyType: Periodical # This can only be "Once" or "Periodical".
+    periodSeconds: 3600                # analytics selected resources every 1 hour
+  resourceSelectors:                   # defines all the resources to be select with
+    - kind: Deployment
+      apiVersion: apps/v1
+      name: metric-adapter
+```
+
 The output is:
 
 ```bash
@@ -32,7 +66,7 @@ kubectl get analytics craned-resource -n crane-system -o yaml
 
 The output is similar to:
 
-```yaml 
+```yaml hl_lines="18-21"
 apiVersion: analysis.crane.io/v1alpha1
 kind: Analytics
 metadata:
@@ -64,7 +98,7 @@ kubectl get recommend -n crane-system craned-resource-resource-j7shb -o yaml
 
 The output is similar to:
 
-```yaml
+```yaml  hl_lines="32-37"
 apiVersion: analysis.crane.io/v1alpha1
 kind: Recommendation
 metadata:
@@ -107,18 +141,54 @@ status:
 The `status.resourceRequest` is recommended by crane's recommendation engine.
 
 Something you should know about Resource recommendation:
+
 * Resource Recommendation use historic prometheus metrics to calculate and propose.
 * We use **Percentile** algorithm to process metrics that also used by VPA.
 * If the workload is running for a long term like several weeks, the result will be more accurate.
 
 ## Analytics and Recommend HPA
 
-Create an **HPA** `Analytics` to give recommendation for deployment: `craned` and `metric-adapter` as an sample.
+Create an **HPA** `Analytics` to give recommendations for deployment: `craned` and `metric-adapter` as a sample.
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/gocrane/crane/main/examples/analytics/analytics-hpa.yaml
 kubectl get analytics -n crane-system 
 ```
+
+```yaml title="analytics-hpa.yaml" hl_lines="7 24 11-14 28-31"
+apiVersion: analysis.crane.io/v1alpha1
+kind: Analytics
+metadata:
+  name: craned-hpa
+  namespace: crane-system
+spec:
+  type: HPA                        # This can only be "Resource" or "HPA".
+  completionStrategy:
+    completionStrategyType: Periodical  # This can only be "Once" or "Periodical".
+    periodSeconds: 600                  # analytics selected resources every 10 minutes
+  resourceSelectors:                    # defines all the resources to be select with
+    - kind: Deployment
+      apiVersion: apps/v1
+      name: craned
+
+---
+
+apiVersion: analysis.crane.io/v1alpha1
+kind: Analytics
+metadata:
+  name: metric-adapter-hpa
+  namespace: crane-system
+spec:
+  type: HPA                       # This can only be "Resource" or "HPA".
+  completionStrategy:
+    completionStrategyType: Periodical # This can only be "Once" or "Periodical".
+    periodSeconds: 3600                # analytics selected resources every 1 hour
+  resourceSelectors:                   # defines all the resources to be select with
+    - kind: Deployment
+      apiVersion: apps/v1
+      name: metric-adapter
+```
+
 
 The output is:
 
@@ -139,7 +209,7 @@ kubectl get analytics craned-hpa -n crane-system -o yaml
 
 The output is similar to:
 
-```yaml 
+```yaml hl_lines="21"
 apiVersion: analysis.crane.io/v1alpha1
 kind: Analytics
 metadata:
@@ -168,12 +238,12 @@ status:
 The recommendation name presents on `status.recommendations[0].name`. Then you can get recommendation detail by running:
 
 ```bash
-kubectl get recommend -n crane-system craned-resource-resource-j7shb -o yaml
+kubectl get recommend -n crane-system craned-resource-resource-2f22w -o yaml
 ```
 
 The output is similar to:
 
-```yaml
+```yaml hl_lines="26-29"
 apiVersion: analysis.crane.io/v1alpha1
 kind: Recommendation
 metadata:
