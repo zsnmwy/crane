@@ -64,15 +64,15 @@ Please see [this document](tutorials/using-qos-ensurance.md) to learn more.
 
 Crane is composed of the following components:
 
-- [craned](https://github.com/gocrane/cmd/craned) - main crane control plane.
+- [craned](https://github.com/gocrane/crane/tree/main/cmd/craned) - main crane control plane.
     - **Predictor** - Predicts resources metrics trends based on historical data.
     - **AnalyticsController** - Analyzes resources and generate related recommendations.
     - **RecommendationController** - Recommend Pod resource requests and autoscaler.
     - **ClusterNodePredictionController** - Create Predictor for nodes.
     - **EffectiveHPAController** - Effective HPA for horizontal scaling.
     - **EffectiveHPAController** - Effective VPA for vertical scaling.
-- [metric-adaptor](https://github.com/gocrane/cmd/metric-adapter) - Metric server for driving the scaling.
-- [crane-agent](https://github.com/gocrane/cmd/crane-agent) - Ensure critical workloads SLO based on abnormally detection.
+- [metric-adaptor](https://github.com/gocrane/crane/tree/main/cmd/metric-adapter) - Metric server for driving the scaling.
+- [crane-agent](https://github.com/gocrane/crane/tree/main/cmd/crane-agent) - Ensure critical workloads SLO based on abnormally detection.
 - [gocrane/api](https://github.com/gocrane/api) - This repository defines component-level APIs for the Crane platform.
 - [gocrane/fadvisor](https://github.com/gocrane/fadvisor) - Financial advisor which collect resource prices from cloud API.
 
