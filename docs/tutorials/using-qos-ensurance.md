@@ -53,14 +53,21 @@ spec:
       localCacheTTLSeconds: 60
   objectiveEnsurances:
   - name: "cpu-usage"
-    avoidanceThreshold: 2     # We consider the rule is triggered, when the threshold reached continued so many times
-    restoreThreshold: 2    # We consider the rule is restored, when the threshold not reached continued so many times
-    actionName: "disablescheduling" # Name of AvoidanceAction which be associated  
-    strategy: "None"  # Strategy for the action, you can set it "Preview" to not perform actually
+    avoidanceThreshold: 2 #(1) 
+    restoreThreshold: 2 #(2)
+    actionName: "disablescheduling" #(3) 
+    strategy: "None" #(4) 
     metricRule:
-      name: "cpu_total_usage" # Name of metric
-      value: 4000   # Threshold of metric
+      name: "cpu_total_usage" #(5) 
+      value: 4000 #(6) 
 ```
+
+1. We consider the rule is triggered, when the threshold reached continued so many times
+2. We consider the rule is restored, when the threshold not reached continued so many times
+3. Name of AvoidanceAction which be associated
+4. Strategy for the action, you can set it "Preview" to not perform actually
+5. Name of metric
+6. Threshold of metric
 
 Please check the video to learn more about the scheduling disable actions.
 
@@ -84,13 +91,13 @@ spec:
   coolDownSeconds: 300
   throttle:
     cpuThrottle:
-      # The minimal ratio of the CPU quota, if the pod is throttled lower than this ratio, it will be set to this.
-      minCPURatio: 10
-      # The step for throttle action. It will reduce this percentage of CPU quota in each avoidance triggered.
-      # It will increase this percentage of CPU quota in each restored.
-      stepCPURatio: 10  
+      minCPURatio: 10 #(1)
+      stepCPURatio: 10 #(2) 
   description: "throttle low priority pods"
 ```
+
+1. The minimal ratio of the CPU quota, if the pod is throttled lower than this ratio, it will be set to this.
+2. The step for throttle action. It will reduce this percentage of CPU quota in each avoidance triggered.It will increase this percentage of CPU quota in each restored.
 
 ```yaml
 apiVersion: ensurance.crane.io/v1alpha1
@@ -129,9 +136,11 @@ metadata:
 spec:
   coolDownSeconds: 300
   eviction:
-    terminationGracePeriodSeconds: 30 # Duration in seconds the pod needs to terminate gracefully.
+    terminationGracePeriodSeconds: 30 #(1) 
   description: "evict low priority pods"
 ```
+
+1. Duration in seconds the pod needs to terminate gracefully.
 
 ```yaml
 apiVersion: ensurance.crane.io/v1alpha1
@@ -150,11 +159,13 @@ spec:
     avoidanceThreshold: 2
     restoreThreshold: 2
     actionName: "evict"
-    strategy: "Preview" # Strategy for the action, "Preview" to not perform actually
+    strategy: "Preview" #(1) 
     metricRule:
       name: "cpu_total_usage"
       value: 6000
 ```
+
+1. Strategy for the action, "Preview" to not perform actually
 
 ## Supported Metrics
 
