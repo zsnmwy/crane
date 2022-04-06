@@ -20,6 +20,8 @@ jobs:
           python-version: "3.9"
 
       - run: pip install mkdocs-material mkdocs-static-i18n mike
+      
+      - run: git log --oneline --decorate --max-count=10 && ls -la && cat docs/index.md && cat docs/index.zh.md
 
       - uses: afc163/surge-preview@v1
         with:
