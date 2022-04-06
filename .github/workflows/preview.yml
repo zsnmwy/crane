@@ -26,6 +26,8 @@ jobs:
       
       - run: git log --oneline --decorate --max-count=10 && ls -la && cat docs/index.md && cat docs/index.zh.md
 
+      - run: git log --oneline --decorate --max-count=10 && ls -la
+
       - uses: afc163/surge-preview@v1
         with:
           surge_token: ${{ secrets.SURGE_TOKEN }}
