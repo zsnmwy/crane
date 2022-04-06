@@ -1,5 +1,7 @@
 # Crane: Cloud Resource Analytics and Economics 
 
+## 还不行的话，倒立洗头
+
 ## Learn STH FUN
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/gocrane/crane)](https://goreportcard.com/report/github.com/gocrane/crane)
