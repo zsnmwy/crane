@@ -33,7 +33,6 @@ jobs:
         run: |
           echo ${{ steps.extract_branch.outputs.branch }}
           mike deploy --push --force --update-aliases ${{ steps.extract_branch.outputs.branch }} latest --rebase
-          mike set-default --push --force latest
 
       - name: Mike
         if: ${{ !github.event.created }}
