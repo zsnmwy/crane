@@ -1,4 +1,4 @@
-# Introduction
+# Introduction Release-0.1.0
 
 The goal of Crane is to provide a one-stop-shop project to help Kubernetes users to save cloud resource usage with a rich set of functionalities:
 
