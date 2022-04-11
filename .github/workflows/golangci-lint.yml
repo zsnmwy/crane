@@ -31,8 +31,8 @@ jobs:
           # working-directory: somedir
 
           # Optional: golangci-lint command line arguments.
-          # args: --issues-exit-code=0
-
+          args: --timeout 30m --disable-all -E deadcode -E unused -E varcheck -E ineffassign -E goimports -E gofmt -E misspell -E unparam -E unconvert -E govet -E errcheck -E structcheck
+      
           # Optional: show only new issues if it's a pull request. The default value is `false`.
           # only-new-issues: true
 
