@@ -4,28 +4,7 @@ on: [pull_request]
 
 
 jobs:
-  all:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
 
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.17
-          
-      - uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cache/go-build
-            ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
-            
-      - name: Build
-        run: make all
-        
   test:
     runs-on: ubuntu-latest
     steps:
@@ -50,6 +29,18 @@ jobs:
       
       - name: Test
         run: make test
+      - name: Convent cover report
+        run: |
+          go tool cover -o coverage.html -html=coverage.out
+          sed -i 's/black/whitesmoke/g' coverage.html
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          # Artifact name
+          name: coverage.html # optional, default is artifact
+          # A file, directory or wildcard pattern that describes what to upload
+          path: coverage.html
+          retention-days: 5
         
   craned:
     runs-on: ubuntu-latest
