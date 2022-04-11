@@ -123,3 +123,7 @@ func appendManagerIfNotNil(managers []manager.Manager, m manager.Manager) []mana
 	}
 	return managers
 }
+
+func unusedFun() string{
+	return "123"
+}
