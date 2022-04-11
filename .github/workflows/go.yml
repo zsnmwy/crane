@@ -13,9 +13,19 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.17
-
+          
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+            
       - name: Build
         run: make generate
+        
   test:
     runs-on: ubuntu-latest
     steps:
@@ -25,9 +35,19 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.17
-
+          
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+            
       - name: Build
         run: make test
+        
   craned:
     runs-on: ubuntu-latest
     steps:
@@ -38,8 +58,18 @@ jobs:
         with:
           go-version: 1.17
 
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
       - name: Build
         run: make craned
+        
   crane-agent:
     runs-on: ubuntu-latest
     steps:
@@ -50,8 +80,18 @@ jobs:
         with:
           go-version: 1.17
 
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
       - name: Build
         run: make crane-agent 
+        
   metric-adapter:
     runs-on: ubuntu-latest
     steps:
@@ -62,8 +102,18 @@ jobs:
         with:
           go-version: 1.17
 
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
       - name: Build
         run: make metric-adapter
+        
   golangci:
     name: lint
     runs-on: ubuntu-latest
@@ -74,6 +124,16 @@ jobs:
         with:
           # The Go version to download (if necessary) and use. Supports semver spec and ranges.
           go-version: 1.17 # optional
+          
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+          
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v2
         with:
