@@ -63,14 +63,14 @@ jobs:
           path: coverage.html
           retention-days: 5
         
-   cover:
+  cover:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
           go-version: 1.17
-          
+
       # Get values for cache paths to be used in later steps
       - id: go-cache-paths
         run: |
@@ -93,7 +93,7 @@ jobs:
         with:
           path: ${{ steps.go-cache-paths.outputs.go-mod }}
           key: ${{ runner.os }}-go-mod-${{ hashFiles('**/go.sum') }}
-      
+
       - name: Go Lint Cache
         uses: actions/cache@v2
         with:
@@ -106,10 +106,10 @@ jobs:
 
       - name: Fmt
         run: make fmt
-      
+
       - name: Vet
         run: make vet
-      
+
       - name: Cover
         run: go test -coverprofile coverage.out -covermode=atomic ./... -v
  
