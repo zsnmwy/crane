@@ -20,7 +20,6 @@ jobs:
         with:
           # The Go version to download (if necessary) and use. Supports semver spec and ranges.
           go-version: 1.17 # optional
-      - run: go test -v ./...
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v2
         with:
