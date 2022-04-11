@@ -55,7 +55,7 @@ jobs:
       - name: Cover
         run: go test -coverprofile coverage.out -covermode=atomic ./... -v
 
-      - name: Convent cover report
+      - name: Convert cover report
         run: |
           go tool cover -o coverage.html -html=coverage.out
           sed -i 's/black/whitesmoke/g' coverage.html
