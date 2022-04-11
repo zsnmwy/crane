@@ -4,8 +4,7 @@ on: [pull_request]
 
 
 jobs:
-
-  build:
+  generate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,4 +15,70 @@ jobs:
           go-version: 1.17
 
       - name: Build
-        run: make all
+        run: make generate
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Build
+        run: make test
+  craned:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Build
+        run: make craned
+  crane-agent:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Build
+        run: make crane-agent 
+  metric-adapter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Build
+        run: make metric-adapter
+  golangci:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Go environment
+        uses: actions/setup-go@v3.0.0
+        with:
+          # The Go version to download (if necessary) and use. Supports semver spec and ranges.
+          go-version: 1.17 # optional
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          # Optional: version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
+          version: v1.45.2
+          
+          # Optional: golangci-lint command line arguments.
+          args: --timeout 30m --disable-all -E deadcode -E unused -E varcheck -E ineffassign -E goimports -E gofmt -E misspell -E unparam -E unconvert -E govet -E errcheck -E structcheck
