@@ -80,6 +80,9 @@ export const EditClusterModal = React.memo(() => {
     } else if (!cluster.craneUrl.startsWith('http://') && !cluster.craneUrl.startsWith('https://')) {
       res.error = true;
       res.msg = t('Crane URL格式不正确，请输入正确的URL');
+    } else if (cluster.craneUrl.endsWith('/')) {
+      res.error = true;
+      res.msg = t('请移除末尾的 /，否则会导致成本洞察中 Grafana 404')
     }
 
     setValidation(validation => ({
