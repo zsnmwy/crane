@@ -565,7 +565,7 @@
 <p>To solve these problems, Dynamic scheduler builds a simple but efficient model based on actual node utilization data，and filters out those nodes with high load to balance the cluster.</p>
 <h2 id="design-details">Design Details<a class="headerlink" href="#design-details" title="Permanent link">&para;</a></h2>
 <h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h3>
-<p><img src="./../images/dynamic-scheduler-plugin.png" div align=“center” width="600" height="350"/></p>
+<p><img alt="" src="../../images/dynamic-scheduler-plugin.png" /></p>
 <p>As shown above, Dynamic scheduler relies on <code>Prometheus</code> and <code>Node-exporter</code> to collect and aggregate metrics data, and it consists of two components:
 - <code>Node-annotator</code> periodically pulls data from Prometheus and marks them with timestamp on the node in the form of annotations.</p>
 <blockquote>
