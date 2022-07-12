@@ -17,7 +17,6 @@ builds:
     goarch:
       - amd64
       - arm64
-      - mips64
     flags:
       - -trimpath
     ldflags:
@@ -28,6 +27,10 @@ builds:
       - -X github.com/kolide/kit/version.revision={{ .FullCommit }}
       - -X github.com/kolide/kit/version.buildDate={{ time "2006-01-02" }}
       - -X github.com/kolide/kit/version.buildUser={{ .Env.USER }}
+      - -X github.com/gocrane/crane/pkg/version.gitVersion={{ .Tag }}
+      - -X github.com/gocrane/crane/pkg/version.gitCommit={{ .FullCommit }}
+      - -X github.com/gocrane/crane/pkg/version.gitTreeState=clean
+      - -X github.com/gocrane/crane/pkg/version.buildDate={{ time "2006-01-02" }}
   - id: crane-agent
     binary: crane-agent
     dir: ./cmd/crane-agent/
@@ -39,7 +42,6 @@ builds:
     goarch:
       - amd64
       - arm64
-      - mips64
     flags:
       - -trimpath
     ldflags:
@@ -50,6 +52,10 @@ builds:
       - -X github.com/kolide/kit/version.revision={{ .FullCommit }}
       - -X github.com/kolide/kit/version.buildDate={{ time "2006-01-02" }}
       - -X github.com/kolide/kit/version.buildUser={{ .Env.USER }}
+      - -X github.com/gocrane/crane/pkg/version.gitVersion={{ .Tag }}
+      - -X github.com/gocrane/crane/pkg/version.gitCommit={{ .FullCommit }}
+      - -X github.com/gocrane/crane/pkg/version.gitTreeState=clean
+      - -X github.com/gocrane/crane/pkg/version.buildDate={{ time "2006-01-02" }}
   - id: metric-adapter
     binary: metric-adapter
     dir: ./cmd/metric-adapter/
@@ -61,7 +67,6 @@ builds:
     goarch:
       - amd64
       - arm64
-      - mips64
     flags:
       - -trimpath
     ldflags:
@@ -72,6 +77,87 @@ builds:
       - -X github.com/kolide/kit/version.revision={{ .FullCommit }}
       - -X github.com/kolide/kit/version.buildDate={{ time "2006-01-02" }}
       - -X github.com/kolide/kit/version.buildUser={{ .Env.USER }}
+      - -X github.com/gocrane/crane/pkg/version.gitVersion={{ .Tag }}
+      - -X github.com/gocrane/crane/pkg/version.gitCommit={{ .FullCommit }}
+      - -X github.com/gocrane/crane/pkg/version.gitTreeState=clean
+      - -X github.com/gocrane/crane/pkg/version.buildDate={{ time "2006-01-02" }}
+dockers:
+  # craned
+  - goos: linux
+    goarch: amd64
+    use: buildx
+    ids:
+      - craned
+    dockerfile: docker/craned.Dockerfile
+    image_templates:
+      - ghcr.io/zsnmwy/crane/craned:{{ .Tag }}-amd64
+    build_flag_templates:
+      - "--platform=linux/amd64"
+  - goos: linux
+    goarch: arm64
+    use: buildx
+    ids:
+      - craned
+    dockerfile: docker/craned.Dockerfile
+    image_templates:
+      - ghcr.io/zsnmwy/crane/craned:{{ .Tag }}-arm64
+    build_flag_templates:
+      - "--platform=linux/arm64/v8"
+  # crane-agent
+  - goos: linux
+    goarch: amd64
+    use: buildx
+    ids:
+      - crane-agent
+    dockerfile: docker/crane-agent.Dockerfile
+    image_templates:
+      - ghcr.io/zsnmwy/crane/crane-agent:{{ .Tag }}-amd64
+    build_flag_templates:
+      - "--platform=linux/amd64"
+  - goos: linux
+    goarch: arm64
+    use: buildx
+    ids:
+      - crane-agent
+    dockerfile: docker/crane-agent.Dockerfile
+    image_templates:
+      - ghcr.io/zsnmwy/crane/crane-agent:{{ .Tag }}-arm64
+    build_flag_templates:
+      - "--platform=linux/arm64/v8"
+  # metric-adapter
+  - goos: linux
+    goarch: amd64
+    use: buildx
+    ids:
+      - metric-adapter
+    dockerfile: docker/metric-adapter.Dockerfile
+    image_templates:
+      - ghcr.io/zsnmwy/crane/metric-adapter:{{ .Tag }}-amd64
+    build_flag_templates:
+      - "--platform=linux/amd64"
+  - goos: linux
+    goarch: arm64
+    use: buildx
+    ids:
+      - metric-adapter
+    dockerfile: docker/metric-adapter.Dockerfile
+    image_templates:
+      - ghcr.io/zsnmwy/crane/metric-adapter:{{ .Tag }}-arm64
+    build_flag_templates:
+      - "--platform=linux/arm64/v8"
+docker_manifests:
+  - name_template: ghcr.io/zsnmwy/crane/craned:{{ .Tag }}
+    image_templates:
+      - ghcr.io/zsnmwy/crane/craned:{{ .Tag }}-amd64
+      - ghcr.io/zsnmwy/crane/craned:{{ .Tag }}-arm64
+  - name_template: ghcr.io/zsnmwy/crane/crane-agent:{{ .Tag }}
+    image_templates:
+      - ghcr.io/zsnmwy/crane/crane-agent:{{ .Tag }}-amd64
+      - ghcr.io/zsnmwy/crane/crane-agent:{{ .Tag }}-arm64
+  - name_template: ghcr.io/zsnmwy/crane/metric-adapter:{{ .Tag }}
+    image_templates:
+      - ghcr.io/zsnmwy/crane/metric-adapter:{{ .Tag }}-amd64
+      - ghcr.io/zsnmwy/crane/metric-adapter:{{ .Tag }}-arm64
 archives:
   - replacements:
       darwin: Darwin
@@ -91,7 +177,7 @@ changelog:
       - '^test:'
 release:
   github:
-    owner: gocrane
+    owner: zsnmwy
     name: crane
   draft: true
   prerelease: auto
