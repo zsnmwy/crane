@@ -2,9 +2,8 @@ package main
 
 import (
 	"fmt"
-	"os"
-
 	"k8s.io/component-base/logs"
+	"os"
 	"sigs.k8s.io/controller-runtime/pkg/manager/signals"
 
 	"github.com/gocrane/crane/cmd/craned/app"
