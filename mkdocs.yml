@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
-site_name: Crane - Cloud Resource Analytics and Economics
+site_name: Crane - Cloud Resource Analytics and Economics1
 theme:
   name: material
 #  custom_dir: overrides
