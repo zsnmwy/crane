@@ -81,8 +81,8 @@ jobs:
             LDFLAGS=${{steps.build-ldflags.outputs.build-ldflags}}
             BUILD=CI
           tags: |
-            ghcr.io/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}-${{steps.git-versions.outputs.git-version}}
-            ghcr.io/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}
+            ghcr.io/zsnmwy/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}-${{steps.git-versions.outputs.git-version}}
+            ghcr.io/zsnmwy/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}
             finops-docker.pkg.coding.net/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}-${{steps.git-versions.outputs.git-version}}
             finops-docker.pkg.coding.net/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}
 
@@ -98,7 +98,7 @@ jobs:
             LDFLAGS=${{steps.build-ldflags.outputs.build-ldflags}}
             BUILD=CI
           tags: |
-            ghcr.io/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:pr-${{github.event.number}}-${{steps.git-versions.outputs.git-version}}
+            ghcr.io/zsnmwy/crane/${{steps.build-name-image.outputs.build-name-image}}:pr-${{github.event.number}}-${{steps.git-versions.outputs.git-version}}
             finops-docker.pkg.coding.net/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:pr-${{github.event.number}}-${{steps.git-versions.outputs.git-version}}
 
   build-metric-adapter:
@@ -163,8 +163,8 @@ jobs:
             LDFLAGS=${{steps.build-ldflags.outputs.build-ldflags}}
             BUILD=CI
           tags: |
-            ghcr.io/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}-${{steps.git-versions.outputs.git-version}}
-            ghcr.io/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}
+            ghcr.io/zsnmwy/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}-${{steps.git-versions.outputs.git-version}}
+            ghcr.io/zsnmwy/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}
             finops-docker.pkg.coding.net/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}-${{steps.git-versions.outputs.git-version}}
             finops-docker.pkg.coding.net/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}
 
@@ -180,7 +180,7 @@ jobs:
             LDFLAGS=${{steps.build-ldflags.outputs.build-ldflags}}
             BUILD=CI
           tags: |
-            ghcr.io/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:pr-${{github.event.number}}-${{steps.git-versions.outputs.git-version}}
+            ghcr.io/zsnmwy/crane/${{steps.build-name-image.outputs.build-name-image}}:pr-${{github.event.number}}-${{steps.git-versions.outputs.git-version}}
             finops-docker.pkg.coding.net/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:pr-${{github.event.number}}-${{steps.git-versions.outputs.git-version}}
 
   build-crane-agent:
@@ -245,8 +245,8 @@ jobs:
             LDFLAGS=${{steps.build-ldflags.outputs.build-ldflags}}
             BUILD=CI
           tags: |
-            ghcr.io/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}-${{steps.git-versions.outputs.git-version}}
-            ghcr.io/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}
+            ghcr.io/zsnmwy/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}-${{steps.git-versions.outputs.git-version}}
+            ghcr.io/zsnmwy/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}
             finops-docker.pkg.coding.net/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}-${{steps.git-versions.outputs.git-version}}
             finops-docker.pkg.coding.net/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}
 
@@ -262,7 +262,7 @@ jobs:
             LDFLAGS=${{steps.build-ldflags.outputs.build-ldflags}}
             BUILD=CI
           tags: |
-            ghcr.io/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:pr-${{github.event.number}}-${{steps.git-versions.outputs.git-version}}
+            ghcr.io/zsnmwy/crane/${{steps.build-name-image.outputs.build-name-image}}:pr-${{github.event.number}}-${{steps.git-versions.outputs.git-version}}
             finops-docker.pkg.coding.net/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:pr-${{github.event.number}}-${{steps.git-versions.outputs.git-version}}
 
   build-dashboard:
@@ -319,8 +319,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}-${{steps.git-versions.outputs.git-version}}
-            ghcr.io/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}
+            ghcr.io/zsnmwy/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}-${{steps.git-versions.outputs.git-version}}
+            ghcr.io/zsnmwy/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}
             finops-docker.pkg.coding.net/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}-${{steps.git-versions.outputs.git-version}}
             finops-docker.pkg.coding.net/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:${{steps.git-branch.outputs.git-branch}}
 
@@ -332,7 +332,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:pr-${{github.event.number}}-${{steps.git-versions.outputs.git-version}}
+            ghcr.io/zsnmwy/crane/${{steps.build-name-image.outputs.build-name-image}}:pr-${{github.event.number}}-${{steps.git-versions.outputs.git-version}}
             finops-docker.pkg.coding.net/gocrane/crane/${{steps.build-name-image.outputs.build-name-image}}:pr-${{github.event.number}}-${{steps.git-versions.outputs.git-version}}
   post-comment:
     runs-on: ubuntu-latest
